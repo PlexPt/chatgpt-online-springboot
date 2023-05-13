@@ -43,7 +43,7 @@ public class GPTEventSourceListener extends EventSourceListener {
      */
     @Override
     public void onOpen(EventSource eventSource, Response response) {
-        log.info("OpenAI建立sse连接...");
+
     }
 
     /**
@@ -64,8 +64,8 @@ public class GPTEventSourceListener extends EventSourceListener {
                 ChatCompletionResponse.class); // 读取Json
         Message delta = completionResponse.getChoices().get(0).getDelta();
         String text = delta.getContent();
-        last += text;
         if (text != null) {
+            last += text;
 
             sseEmitter.send(delta);
         }
@@ -74,7 +74,6 @@ public class GPTEventSourceListener extends EventSourceListener {
 
     @Override
     public void onClosed(EventSource eventSource) {
-        log.info("OpenAI关闭sse连接...");
         SseHelper.complete(sseEmitter);
     }
 
