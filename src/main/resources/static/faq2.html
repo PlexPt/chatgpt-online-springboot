@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>常见问题页面</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>常见问题</h1>
+
+    <div class="accordion" id="faqContent">
+        <!-- Loop through questions and answers -->
+        <script>
+            var faqData = [
+                {
+                    question: "如何调用ChatGPT API？",
+                    answer: "您可以通过发送HTTP请求来调用ChatGPT API。您需要将您的输入数据作为JSON对象提供给API，并且需要一个API密钥才能调用它。",
+                },
+                {
+                    question: "API密钥在哪里可以获得？",
+                    answer: "您可以在ChatGPT网站上注册账户并获取API密钥。一旦您有了API密钥，您就可以在收到确认电子邮件后立即开始使用ChatGPT API。"
+                },
+                {
+                    question: "API返回的是什么类型的响应？",
+                    answer: "API返回JSON格式的响应。您需要解析这个响应来获取ChatGPT的回答。"
+                }
+            ];
+
+            for (var i = 0; i < faqData.length; i++) {
+                var question = faqData[i].question;
+                var answer = faqData[i].answer;
+
+                document.writeln(`
+            <div class="card">
+              <div class="card-header" id="question${i}">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#answer${i}" aria-expanded="true" aria-controls="answer${i}">
+                    ${question}
+                  </button>
+                </h2>
+              </div>
+
+              <div id="answer${i}" class="collapse" aria-labelledby="question${i}" data-parent="#faqContent">
+                <div class="card-body">
+                  ${answer}
+                </div>
+              </div>
+            </div>
+          `);
+            }
+        </script>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

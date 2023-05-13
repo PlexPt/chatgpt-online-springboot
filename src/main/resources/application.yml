@@ -1,0 +1,10 @@
+server:
+  port: 666
+
+
+
+#????KEY????? at least 2
+keys:
+  list:
+    - sk-xxxxxxxxxxx
+    - sk-xxxxxxxxxxx
