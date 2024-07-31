@@ -52,23 +52,25 @@ public class GPTEventSourceListener extends EventSourceListener {
     @SneakyThrows
     @Override
     public void onEvent(EventSource eventSource, String id, String type, String data) {
-        log.info("回答中：{}", data);
-        if (data.equals("[DONE]")) {
-            log.info("回答完成：" + last);
-            onComplate.accept(last);
-            SseHelper.complete(sseEmitter);
-            return;
-        }
+        sseEmitter.send(data);
 
-        ChatCompletionResponse completionResponse = JSON.parseObject(data,
-                ChatCompletionResponse.class); // 读取Json
-        Message delta = completionResponse.getChoices().get(0).getDelta();
-        String text = delta.getContent();
-        if (text != null) {
-            last += text;
-
-            sseEmitter.send(delta);
-        }
+//        log.info("回答中：{}", data);
+//        if (data.equals("[DONE]")) {
+//            log.info("回答完成：" + last);
+//            onComplate.accept(last);
+//            SseHelper.complete(sseEmitter);
+//            return;
+//        }
+//
+//        ChatCompletionResponse completionResponse = JSON.parseObject(data,
+//                ChatCompletionResponse.class); // 读取Json
+//        Message delta = completionResponse.getChoices().get(0).getDelta();
+//        String text = delta.getContent();
+//        if (text != null) {
+//            last += text;
+//
+//            sseEmitter.send(delta);
+//        }
     }
 
 

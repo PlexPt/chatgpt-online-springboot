@@ -1,114 +1,699 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=450, maximum-scale=1.0, user-scalable=no">
+    <title>ChatGPT Java 在线</title>
     <meta name="description"
           content="ChatGPT免费体验,ChatGPT在线体验,ChatGPT官网地址,ChatGPT免登录,ChatGPT免注册,与Ai对话，请描述您的需求-支持中文、英语、日本语等,ChatGPT和本网站都是基于open ai实现的"/>
     <meta name="keywords"
           content="ChatGPT 人工智能ChatGPT 聊天机器人ChatGPT ChatGPT免费 ChatGPT在线体验 ChatGPT官网 ChatGPT登录 ChatGPT注册 ChatGPT地址"/>
-    <title>ChatGPT Java中文在线</title>
-    <link rel="stylesheet" href="/css/common.css?v1.2">
-    <link rel="stylesheet" href="/css/wenda.css?v1.2">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.css" rel="stylesheet">
+    <!--    <link href="https://cdn.staticfile.org/bootstrap/5.2.3/css/bootstrap.css" rel="stylesheet">-->
+    <!--    https://cdn.staticfile.org/bootstrap/5.2.3/js/bootstrap.bundle.min.js-->
+    <script type='text/javascript' src="https://cdn.staticfile.org/clipboard.js/1.5.15/clipboard.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sse.js@2.5.0/lib/sse.js"></script>
+    <script src="/sse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@microsoft/fetch-event-source@2.0.1/lib/cjs/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@microsoft/fetch-event-source@2.0.1/lib/cjs/fetch.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@microsoft/fetch-event-source@2.0.1/lib/cjs/parse.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .chat-box {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin: 10px 0;
+            display: flex;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message .content {
+            max-width: 70%;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .message.user .content {
+            background-color: #007bff;
+            color: white;
+            border-bottom-right-radius: 0;
+        }
+
+        .message.ai .content {
+            background-color: #f1f1f1;
+            border-bottom-left-radius: 0;
+        }
+
+    </style>
 </head>
-
 <body>
-<div class="layout-wrap">
-    <header class="layout-header">
-        <div class="container" data-flex="main:justify cross:start">
-<!--            <i class="fas fa-comments" style="color: white; font-size: 1.5rem;"></i>-->
-            <div class="header-logo">
-                <h2 class="logo"><a class="links" href="https://github.com/PlexPt/chatgpt-online-springboot"
-                                    title="AiChatGPT"><span class="logo-title">chat</span></a>
-                </h2>
-            </div>
-            <div class="header-logo">
-                <h2 class="logo"><a class="links" id="clean" title="清理会话记录"><span
-                        class="logo-title">清理会话</span></a></h2>
-            </div>
-            <div class="header-logo">
-                <h2 class="logo"><a class="links" href="https://open.plexpt.com"
-                                    target="_blank" title="ChatGPT 中心"><span
-                        class="logo-title">加速API购买</span></a></h2>
-            </div>
-        </div>
+<div class="container-fluid">
+
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <span class="fs-2">ChatGPT Java 在线 它几乎无所不能 </span>
+        </a>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="faq1.html" class="nav-link">常见问题</a></li>
+            <li class="nav-item"><a href="faq2.html" class="nav-link">常见问题2</a></li>
+            <li class="nav-item"><a href="https://work.weixin.qq.com/kfid/kfc6913bb4906e0e597" class="nav-link">API购买</a></li>
+            <li class="nav-item"><a href="https://github.com/PlexPt/chatgpt-online-springboot"
+                                    class="nav-link">Github</a></li>
+        </ul>
     </header>
-    <div class="layout-content">
-        <div class="container">
-            <article class="article" id="article">
-                <div class="article-box">
-                    <div style="text-align: center;color:#9ca2a8">
-                        ChatGPT是一个超强的Ai，它会创作、写论文、答辩、编程等
-                       (<a
-                            href="https://github.com/PlexPt/chatgpt-online-springboot" target="_blank"
-                            style="color:#9ca2a8"> 本站源码</a>)<br/>
-                        项目基于Java8 + springboot + maven + 前端 + chatgpt3.5<br/>
-                        <a class="nav-link" href="faq1.html">常见问题</a>
-                        <br>
-                        由于ChatGPT官方回复需付费，请输入KEY使用，如果没有，可以使用 https://open.plexpt.com
-                    </div>
-                    <div class="precast-block" data-flex="main:left">
-                        <div class="input-group">
-                            <span style="text-align: center;color:#9ca2a8">&nbsp;&nbsp;ChatGPT版本：</span>
-                            <select id="id" class="btn-default form-control"
-                                    style="background-color: rgb(164,165,179);min-width:100px;max-width:120px">
-                                <option value="1">对话版(多语言)</option>
-                                <!--									<option value="2">绘图版(英文描述)</option>-->
-                            </select>
-                            <span style="text-align: center;color:#9ca2a8">&nbsp;&nbsp;连续对话：</span>
-                            <input type="checkbox" id="keep" checked style="min-width:220px;">
-                            <label for="keep"></label>
 
-                            <span style="text-align: center;color:#9ca2a8">&nbsp;&nbsp;快速流式对话：</span>
-                            <input type="checkbox" id="stream" checked style="min-width:220px;">
-                            <label for="stream"></label>
+    <div class="row">
+        <!-- 左栏：记录列表 -->
+        <div class="col-md-4">
+            <h2>保存的记录</h2>
+            <ul class="list-group" id="record-list">
+                <!-- 记录项将动态插入到这里 -->
+            </ul>
+            <br>
+            <div id="prompts" class="btn-group-vertical" role="group" style="display: flex; justify-content: center;">
+                <!-- 预设 -->
+            </div>
+            <div class="container mt-5">
+                <h3 class="mb-4">AI 模型列表</h3>
+                <div class="form-group">
+                    <label for="api-key">输入 API 密钥</label>
+                    <input type="text" class="form-control" id="api-key2" placeholder="输入您的 API 密钥">
+                </div>
+                <button class="btn btn-primary mb-4" onclick="fetchData()">获取模型列表</button>
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>ID</th>
+                        <th id="created-header" style="cursor: pointer;">创建时间</th>
+                    </tr>
+                    </thead>
+                    <tbody id="data-table-body">
+                    </tbody>
+                </table>
+            </div>
 
-                            <span style="text-align: center;color:#9ca2a8">&nbsp;&nbsp;APIKEY：</span>
-                            <input type="text" class="form-control" placeholder="输入你的APIKEY  sk-xxxxxxxxxx"
-                                   maxlength="100" id="key" value=""
-                                   style="background-color: rgb(164,165,179);min-width:200px;max-width:280px">
+        </div>
 
-                            <div class="right-btn layout-bar">
-                                <p class="balance  bright-btn" id="balance"
-                                   data-flex="main:center cross:center">查询余额</p>
-                            </div>
-
-                        </div>
-                    </div>
-                    <ul id="article-wrapper">
-                    </ul>
-                    <div class="creating-loading" data-flex="main:center dir:top cross:center">
-                        <div class="semi-circle-spin"></div>
-                    </div>
-                    <div id="fixed-block">
-                        <div class="precast-block" id="kw-target-box"
-                             data-flex="main:left cross:center">
-                            <div id="target-box" class="box">
-                                <input type="text" name="kw-target"
-                                       placeholder="它几乎无所不能，点此提问" id="kw-target"
-                                       autofocus>
-                            </div>
-                            <div class="right-btn layout-bar">
-                                <p class="btn ai-btn bright-btn" id="ai-btn"
-                                   data-flex="main:center cross:center"><i
-                                        class="iconfont icon-wuguan"></i>发送</p>
-                            </div>
+        <!-- 右栏：对话界面 -->
+        <div class="col-md-8">
+            <h2>AI 聊天</h2>
+            <form id="chat-form">
+                <div class="mb-3">
+                    <label for="record-title" class="form-label">记录标题</label>
+                    <input type="text" class="form-control" id="record-title" placeholder="输入记录标题">
+                </div>
+                <div class="mb-3">
+                    <label for="api-url" class="form-label">API 地址</label>
+                    <input type="text" value="https://api.openai.com" class="form-control" id="api-url"
+                           placeholder="输入 OpenAI API 地址，例如：https://api.openai.com">
+                </div>
+                <div class="mb-3">
+                    <label for="api-key" class="form-label">API 密钥</label>
+                    <input type="text" class="form-control" id="api-key" placeholder="输入您的 OpenAI API 密钥">
+                </div>
+                <div class="mb-3">
+                    <label for="model" class="form-label">模型</label>
+                    <input type="text" class="form-control" id="model" placeholder="输入模型名称，例如：gpt-4"
+                           value="gpt-3.5-turbo" oninput="filterModel()">
+                    <div class="dropdown">
+                        <div class="dropdown-menu" id="dropdown-menu">
+                            <button class="dropdown-item" type="button">gpt-3.5-turbo</button>
+                            <button class="dropdown-item" type="button">gpt-4</button>
+                            <button class="dropdown-item" type="button">gpt-4-turbo</button>
+                            <button class="dropdown-item" type="button">gpt-4o</button>
+                            <button class="dropdown-item" type="button">gpt-4o-mini</button>
                         </div>
                     </div>
                 </div>
-            </article>
+                <div class="mb-3">
+                    <label for="max-tokens" class="form-label">最大token数</label>
+                    <input type="number" class="form-control" id="max-tokens" placeholder="最大token数" value="4000">
+                </div>
+                <div class="mb-3">
+                    <label for="temperature" class="form-label">温度</label>
+                    <input type="number" step="0.1" class="form-control" id="temperature" placeholder="输入温度值"
+                           value="0.7">
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="stream" value="true">
+                    <label class="form-check-label" for="stream">
+                        启用流模式
+                    </label>
+                </div>
+                <div class="mb-3 d-flex">
+                    <div class="flex-grow-1">
+                        <label for="prompt" class="form-label">提示词</label>
+                        <textarea class="form-control" id="prompt" rows="3" placeholder="输入您的提示词"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 20%;">发送</button>
+                <button style="width: 4%; visibility: hidden">CC</button>
+                <button type="button" id="clear-btn" class="btn btn-secondary">清空</button>
+                <button type="button" class="btn btn-secondary" id="save-button">保存</button>
+            </form>
+            <div class="mt-4" id="response-info" style="display: none;">
+                <span id="response-status"></span> | <span id="response-time"></span>
+            </div>
+            <div class="mt-4 card">
+                <div id="chat-response" style="padding: 10px">
+                </div>
+                <div class="chat-box" id="chat-box">
+                    <!-- Messages will be appended here -->
+                </div>
+                <!-- 对话结果将显示在这里 -->
+            </div>
+
+            <div class="mt-4 card">
+        <pre id="chat-info" style="padding: 10px">
+        </pre>
+                <!-- 对话结果将显示在这里 -->
+            </div>
+
+
         </div>
     </div>
 </div>
-<script src="https://s3.pstatp.com/cdn/expire-1-w/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/layer/3.5.1/layer.min.js"
-        type="application/javascript"></script>
-<script src="/js/chat.js?v2.8"></script>
-<script async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5917036986566451"
-        crossorigin="anonymous"></script>
-</body>
 
+<script>
+
+
+    function loadPresets() {
+        const presetsData = [
+            {"text": "1+1", "prompt": "1+1="},
+            {"text": "西红柿炒蛋", "prompt": "西红柿炒蛋怎么做"},
+            {"text": "糖醋里脊", "prompt": "糖醋里脊怎么做"},
+            {"text": "写文章", "prompt": "帮我写一篇文章"},
+            {"text": "量子力学", "prompt": "解释一下量子力学"},
+            {"text": "讲笑话", "prompt": "告诉我一个笑话"},
+            {"text": "Python排序算法", "prompt": "用Python写一个排序算法"}
+        ];
+
+        const promptsDiv = document.getElementById('prompts');
+        presetsData.forEach(button => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'btn btn-secondary';
+            btn.textContent = button.text;
+            btn.onclick = () => setPrompt(button.prompt);
+            promptsDiv.appendChild(btn);
+        });
+    }
+
+    // 加载按钮
+    loadPresets();
+    const chatBox = document.getElementById('chat-box');
+    const clearBtn = document.getElementById('clear-btn');
+
+    let chatHistory = [];
+    // [
+    //   {
+    //   content: "你是一个基于GPT4.0的本地化的大型语言模型。",
+    //   role: "system"
+    // }, ]
+    document.getElementById('chat-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        let apiUrl = document.getElementById('api-url').value;
+        let apiKey = document.getElementById('api-key').value;
+        let model = document.getElementById('model').value;
+        let maxTokens = parseInt(document.getElementById('max-tokens').value);
+        let temperature = parseFloat(document.getElementById('temperature').value);
+        let stream = document.getElementById('stream').checked;
+        let prompt = document.getElementById('prompt').value;
+
+        if (!apiUrl || !apiKey || !model) {
+            alert('请输入 API 地址、API 密钥、模型名称和提示词');
+            return;
+        }
+        if (apiUrl.endsWith('/')) {
+            apiUrl = apiUrl.slice(0, -1);
+        }
+
+
+        try {
+            const startTime = performance.now();
+            const chatResponseDiv = document.getElementById('chat-response');
+
+            const chatInfoDiv = document.getElementById('chat-info');
+            const responseInfoDiv = document.getElementById('response-info');
+            const responseStatusSpan = document.getElementById('response-status');
+            const responseTimeSpan = document.getElementById('response-time');
+
+            chatResponseDiv.innerHTML = '';
+            chatInfoDiv.innerHTML = '';
+            responseInfoDiv.style.display = 'none';
+
+            appendMessage('user', prompt);
+            appendMessage('ai', '...'); // Show loading indicator
+
+            chatHistory.push({role: "user", content: prompt});
+
+            if (stream) {
+                let result = "";
+                let sse = new SSE(`/chat/sse`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    payload: JSON.stringify({
+                        model: model,
+                        apiHost: apiUrl,
+                        apiKey: apiKey,
+                        messages: chatHistory,
+                        max_tokens: maxTokens,
+                        temperature: temperature,
+                        stream: stream
+                    }),
+                })
+
+                //接收到后台数据触发监听方法
+                sse.addEventListener('message', function (res) {
+                    if (res.data == "[DONE]") {
+                        console.log('sse 回答完成')
+                        chatHistory.push({role: "assistant", content: result});
+
+                        sse.close();
+                        return;
+                    }
+
+
+                    let data = JSON.parse(res.data);
+                    console.log('sse 收到数据', data)
+                    let content = data.choices[0].delta.content;
+                    if (content == undefined) {
+                        return;
+                    }
+                    result += content;
+                    let parsedContent = marked.parse(result);
+                    chatResponseDiv.innerHTML = parsedContent;
+                    chatBox.removeChild(chatBox.lastChild);
+                    appendMessage('ai', parsedContent);
+
+
+                    chatResponseDiv.style.backgroundColor = 'lightgreen';
+                    chatInfoDiv.innerHTML = JSON.stringify(data, null, 2)
+                });
+
+
+                //与后台连接成功触发的监听
+                sse.addEventListener('open', function (response) {
+                    console.log('sse open 连接成功');
+
+                    if (response.ok) {
+                        const endTime = performance.now();
+                        const elapsedTime = ((endTime - startTime) / 1000).toFixed(2);
+                        responseStatusSpan.innerHTML = `Status: <span style="color: #90EE90;">${response.status} OK</span>`;
+                        responseTimeSpan.innerHTML = `Time: ${elapsedTime} s`;
+                        responseInfoDiv.style.display = 'block';
+                    } else {
+                        throw new Error(`HTTP error: ${response.status}`);
+                    }
+                });
+
+                //请求出错触发的监听方法
+                sse.addEventListener('error', function (e) {
+                    console.error('sse error 请求出错：', e);
+                    responseStatusSpan.innerHTML = `Status: <span style="color: red;">Error</span>`;
+                    responseInfoDiv.style.display = 'block';
+                    chatInfoDiv.innerHTML = e.data;
+
+                    chatBox.removeChild(chatBox.lastChild);
+                    appendMessage('ai', e.data);
+
+                });
+                //数据传输完成关闭连接触发的监听方法
+                sse.addEventListener('close', function (e) {
+                    console.log('sse 连接关闭');
+                });
+                sse.stream()
+            } else {
+
+                fetch(`/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: model,
+                        messages: chatHistory,
+                        apiHost: apiUrl,
+                        apiKey: apiKey,
+                        max_tokens: maxTokens,
+                        temperature: temperature,
+                        stream: stream
+                    })
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+
+                            return response.json().then(errorBody => {
+                                errorBody.httpStatus = response.status;
+                                throw new Error(JSON.stringify(errorBody));
+                            });
+
+                            // let errorData = response.text()
+                            // let status = response.status;
+                            // errorData.status = status;
+                            // throw new Error(errorData || 'An error occurred ' + status);
+                        }
+                    })
+                    .then(data => {
+
+                        const endTime = performance.now();
+                        const elapsedTime = ((endTime - startTime) / 1000).toFixed(2);
+
+                        let content = data.choices[0].message.content;
+                        chatHistory.push({role: "assistant", content: content});
+                        let parsedContent = marked.parse(content);
+                        chatResponseDiv.innerHTML = parsedContent;
+
+                        chatBox.removeChild(chatBox.lastChild);
+                        appendMessage('ai', parsedContent);
+
+                        chatInfoDiv.innerHTML = JSON.stringify(data, null, 2)
+
+                        // if (response.status === 200) {
+                        chatResponseDiv.style.backgroundColor = 'lightgreen';
+                        responseStatusSpan.innerHTML = `Status: <span style="color: #90EE90;">OK</span>`;
+                        // } else {
+                        //   chatResponseDiv.style.backgroundColor = 'lightyellow';
+                        //   responseStatusSpan.innerHTML = `Status: <span style="color: red;">${response.status} Error</span>`;
+                        // }
+
+                        responseTimeSpan.innerHTML = `Time: ${elapsedTime} s`;
+                        responseInfoDiv.style.display = 'block';
+
+
+                    })
+                    .catch(error => {
+
+                        chatResponseDiv.style.backgroundColor = 'lightyellow';
+                        responseStatusSpan.innerHTML = `Status: <span style="color: red;">${error.httpStatus} Error</span>`;
+
+                        chatBox.removeChild(chatBox.lastChild);
+                        appendMessage('ai', (error));
+                    });
+
+
+            }
+        } catch (error) {
+            console.log(error)
+            alert('请求失败，请检查 API 地址和密钥' + error);
+        }
+    });
+
+    clearBtn.addEventListener('click', function () {
+        chatHistory = [];
+        chatBox.innerHTML = '';
+    });
+    document.getElementById('save-button').addEventListener('click', function () {
+        const apiUrl = document.getElementById('api-url').value;
+        const apiKey = document.getElementById('api-key').value;
+        const model = document.getElementById('model').value;
+        const maxTokens = document.getElementById('max-tokens').value;
+        const temperature = document.getElementById('temperature').value;
+        const stream = document.getElementById('stream').checked;
+        const prompt = document.getElementById('prompt').value;
+        const response = document.getElementById('chat-response').textContent;
+        const title = document.getElementById('record-title').value || prompt; // 使用自定义标题或提示词作为标题
+
+        if (!apiUrl || !apiKey || !model || !prompt) {
+            alert('没有内容可以保存');
+            return;
+        }
+
+        const record = {apiUrl, apiKey, model, maxTokens, temperature, stream, prompt, response, title};
+
+        kvApi.upsertValue(record.title, record)
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+
+        const recordList = document.getElementById('record-list');
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+        listItem.textContent = title;
+        listItem.dataset.record = JSON.stringify(record);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'btn btn-danger btn-sm ms-2';
+        deleteButton.textContent = '删除';
+        deleteButton.onclick = function () {
+            recordList.removeChild(listItem);
+            kvApi.deleteValue(title)
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+        };
+
+        listItem.appendChild(deleteButton);
+        recordList.appendChild(listItem);
+    });
+
+    document.getElementById('record-list').addEventListener('click', function (e) {
+        if (e.target && e.target.matches('li.list-group-item')) {
+            const record = JSON.parse(e.target.dataset.record);
+
+            document.getElementById('record-title').value = record.title;
+            document.getElementById('api-url').value = record.apiUrl;
+            document.getElementById('api-key').value = record.apiKey;
+            document.getElementById('model').value = record.model;
+            document.getElementById('max-tokens').value = record.maxTokens;
+            document.getElementById('temperature').value = record.temperature;
+            document.getElementById('stream').checked = record.stream;
+            document.getElementById('prompt').value = record.prompt;
+            document.getElementById('chat-response').textContent = record.response;
+        }
+    });
+
+    function modelSelect() {
+        const modelInput = document.getElementById('model');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
+
+        modelInput.addEventListener('focus', function () {
+            dropdownMenu.classList.add('show');
+        });
+
+        modelInput.addEventListener('blur', function () {
+            setTimeout(() => dropdownMenu.classList.remove('show'), 200);
+        });
+
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function () {
+                modelInput.value = this.textContent;
+                dropdownMenu.classList.remove('show');
+            });
+        });
+    }
+
+    function filterModel() {
+        const input = document.getElementById('model');
+        const filter = input.value.toLowerCase();
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const items = dropdownMenu.getElementsByClassName('dropdown-item');
+
+        let hasVisibleItems = false;
+
+        for (let i = 0; i < items.length; i++) {
+            const txtValue = items[i].textContent || items[i].innerText;
+            if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                items[i].style.display = '';
+                hasVisibleItems = true;
+            } else {
+                items[i].style.display = 'none';
+            }
+        }
+
+        if (filter && hasVisibleItems) {
+            dropdownMenu.classList.add('show');
+        } else {
+            dropdownMenu.classList.remove('show');
+        }
+    }
+
+
+    let apiData = [];
+
+    async function fetchData() {
+        const apiKey = document.getElementById('api-key2').value;
+        const response = await fetch('https://api.openai.com/v1/models', {
+            headers: {
+                'Authorization': 'Bearer ' + apiKey
+            }
+        });
+        const data = await response.json();
+        apiData = data.data;
+
+        // 初始按 ID 排序
+        apiData.sort((a, b) => a.id.localeCompare(b.id));
+        renderTable();
+    }
+
+    function renderTable() {
+        const tableBody = document.getElementById('data-table-body');
+        tableBody.innerHTML = ''; // 清除之前的数据
+
+        apiData.forEach(item => {
+            const row = document.createElement('tr');
+
+            const idCell = document.createElement('td');
+            idCell.textContent = item.id;
+            row.appendChild(idCell);
+
+            const createdCell = document.createElement('td');
+            const date = new Date(item.created * 1000);
+            createdCell.textContent = date.toISOString().split('T')[0];
+            row.appendChild(createdCell);
+
+            tableBody.appendChild(row);
+        });
+    }
+
+    function appendMessage(sender, message) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', sender);
+
+        const contentElement = document.createElement('div');
+        contentElement.classList.add('content');
+        if (sender == "ai") {
+            contentElement.innerHTML = message;
+        } else {
+            contentElement.textContent = message;
+        }
+
+        messageElement.appendChild(contentElement);
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    document.getElementById('created-header').addEventListener('click', () => {
+        // 按创建时间排序
+        apiData.sort((a, b) => a.created - b.created);
+        renderTable();
+    });
+
+
+    function onMounted() {
+
+        kvApi.listKeys()
+            .then(keys => loadHistory(keys || []))
+            .catch(error => console.error(error));
+
+        modelSelect();
+    }
+
+    function loadHistory(keys) {
+        // const records = JSON.parse(localStorage.getItem('chatRecords')) || [];
+        const recordList = document.getElementById('record-list');
+        keys.forEach(title => {
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+            listItem.textContent = title
+
+            kvApi.getValue(title)
+                .then(data => listItem.dataset.record = JSON.stringify(data))
+                .catch(error => console.error(error));
+
+            // listItem.dataset.record = JSON.stringify(kvApi.getValue(title).then(data => data));
+
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'btn btn-danger btn-sm ms-2';
+            deleteButton.textContent = '删除';
+            deleteButton.onclick = function () {
+                recordList.removeChild(listItem);
+                kvApi.deleteValue(title)
+                    .then(data => console.log(data))
+                    .catch(error => console.error(error));
+            };
+
+            listItem.appendChild(deleteButton);
+            recordList.appendChild(listItem);
+        });
+    }
+
+    function setPrompt(text) {
+        document.getElementById('prompt').value = text;
+    }
+
+    document.addEventListener('DOMContentLoaded', onMounted);
+
+
+    const apiBaseUrl = '/api/chat';
+
+    const kvApi = {
+        async getValue(key) {
+            const response = await fetch(`${apiBaseUrl}?key=${encodeURIComponent(key)}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Error fetching key ${key}: ${errorData.error}`);
+            }
+            return response.json();
+        },
+
+        async upsertValue(key, value) {
+            const response = await fetch(apiBaseUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({key, value}),
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Error upserting key ${key}: ${errorData.error}`);
+            }
+            return response.json();
+        },
+
+        async deleteValue(key) {
+            const response = await fetch(`${apiBaseUrl}?key=${encodeURIComponent(key)}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Error deleting key ${key}: ${errorData.error}`);
+            }
+            return response.json();
+        },
+
+        async listKeys() {
+            const response = await fetch(`${apiBaseUrl}/list`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Error listing keys: ${errorData.error}`);
+            }
+            return response.json();
+        },
+    };
+
+</script>
+</body>
 </html>
