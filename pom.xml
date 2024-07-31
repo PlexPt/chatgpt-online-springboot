@@ -32,7 +32,7 @@
         <dependency>
             <groupId>net.dreamlu</groupId>
             <artifactId>mica-http</artifactId>
-            <version>2.7.9</version>
+            <version>3.3.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
